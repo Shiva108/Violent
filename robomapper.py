@@ -46,6 +46,10 @@ def threader():
     print('The Threader')
 
 
+def smbhandler():
+    print('Handler for SMB')
+
+
 def main():
     try:
         # Arguments
