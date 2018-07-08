@@ -2,8 +2,10 @@
   <dictionary name="e">
     <words>
       <w>cyberium</w>
+      <w>nmscan</w>
       <w>robo</w>
       <w>starwars</w>
+      <w>uphosts</w>
     </words>
   </dictionary>
 </component>
