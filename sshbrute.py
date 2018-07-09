@@ -1,9 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-import pexpect
 import optparse
 import os
 from threading import *
+
+import pexpect
 
 maxConnections = 5
 connection_lock = BoundedSemaphore(value=maxConnections)

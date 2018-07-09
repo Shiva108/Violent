@@ -1,8 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 from pexpect import pxssh
-import optparse
-import argparse
 
 
 class Client:
