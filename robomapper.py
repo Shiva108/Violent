@@ -50,6 +50,10 @@ def smbhandler():
     print('Handler for SMB')
 
 
+def bannergrap():
+    print('This is a bannergrapper')
+
+
 def main():
     try:
         # Arguments
