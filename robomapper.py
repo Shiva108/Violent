@@ -43,8 +43,8 @@ def mapper(target, targetname, arguments):  # test target with parameters
 
 def upcheck(target):
     # new code
-    nmcan = nmap.PortScanner()  # Constructing object
-    nm.scan(hosts=target, arguments='-n -sP -PE -PA21,23,80,3389')
+    nm = nmap.PortScanner()  # Constructing object nm
+    nm.scan(hosts=target, arguments='-sn -Pn -PE')
     hosts_list = [(x, nm[x]['status']['state']) for x in nm.all_hosts()]
     for host, status in hosts_list:
         print('{0}:{1}'.host)
@@ -80,7 +80,8 @@ def main():
         targetname = args.targetname
         scantype = args.scantype
         #
-        mapper(target, targetname, ' -sS -Pn -vv --top-ports 100')
+        upcheck(target)
+        # mapper(target, targetname, ' -sS -Pn -vv --top-ports 100')
     except RuntimeError as e:
         print('Runtime error: ' + str(e))
 
