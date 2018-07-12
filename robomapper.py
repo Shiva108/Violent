@@ -41,6 +41,15 @@ def mapper(target, targetname, arguments):  # test target with parameters
     print('Running nmap on ' + target + ' with arguments: ' + arguments)
 
 
+def upcheck(target):
+    # new code
+    nmcan = nmap.PortScanner()  # Constructing object
+    nm.scan(hosts=target, arguments='-n -sP -PE -PA21,23,80,3389')
+    hosts_list = [(x, nm[x]['status']['state']) for x in nm.all_hosts()]
+    for host, status in hosts_list:
+        print('{0}:{1}'.host)
+
+
 def handler():
     print('This is the handler')
 
