@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # 2018 by Shiva @ CPH:SEC & Cyberium
 
 
@@ -6,6 +6,12 @@
 # ===============================================================================
 
 version = '0.0.1a'
+
+pingscan = ' -sn -Pn'
+tcpscan = ' -sS -T4 -Pn -open -p- -oX ' + targetname + ' -vv'
+servicescan = ' -sV'
+
+
 
 try:
     from colorama import init
@@ -31,12 +37,8 @@ def banner(version):
 
 def mapper(target, targetname, arguments):  # test target with parameters
     nmscan = nmap.PortScanner()  # Constructing object
-    nmscan.scan(hosts=target, arguments=' -sn -Pn')  # test if target is up
-    status = nmscan.scanstats()
-    state = 'down'
-    # print(str(state) + " " + status['uphosts'])
-    if status['uphosts'] == "1":
-        state = 'up'
+    nmscan.scan(hosts=target, arguments=arguments)  # test if target is up
+    # something
     print('[+] Host: ' + str(target) + " is " + str(state))
     print('Running nmap on ' + target + ' with arguments: ' + arguments)
 
@@ -46,8 +48,8 @@ def upcheck(target):
     nm = nmap.PortScanner()  # Constructing object nm
     nm.scan(hosts=target, arguments='-sn -Pn -PE')
     hosts_list = [(x, nm[x]['status']['state']) for x in nm.all_hosts()]
-    for host, status in hosts_list:
-        print('{0}:{1}'.host)
+    for x, status in hosts_list:
+        print("[+] " + x + " is " + status)
 
 
 def handler():
