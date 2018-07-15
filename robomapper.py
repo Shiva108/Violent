@@ -7,12 +7,14 @@
 
 version = '0.0.1a'
 
-# targetname = '10.10.10.83'
-# pingscan = ' -sn -Pn'
-# tcpscan = ' -sS -T4 -Pn -open -p- -oX ' + targetname + ' -vv'
-# servicescan = ' -sV'
-
-
+# Control Vars - Change these to change function of script
+openports = ' 22,80,8080'
+target = '10.10.10.83'
+targetname = "test_run"
+pingscan = ' -sn -Pn'
+tcpscan = ' -sS -T4 -Pn -open -p- -vv'
+servicescan = ' -sSV -T4 -Pn -vv -p' + openports + ' ' + target
+outputdir = "/home/e/"
 
 try:
     from colorama import init
@@ -37,10 +39,15 @@ def banner(version):
 
 
 def mapper(target, targetname, arguments):  # test target with parameters
-    print('Running nmap on ' + target + ' with arguments: ' + arguments)
-    nmscan = nmap.PortScanner()  # Constructing object
-    nmscan.scan(hosts=target, arguments=arguments)  # test if target is up
-    # something
+    try:
+        print('Running nmap on ' + target + ' with arguments: ' + arguments)
+        nmscan = nmap.PortScanner()  # Constructing object
+        nmscan.scan(hosts=target, arguments=arguments)
+    except BaseException as e:
+        print('Mapper has crashed: ' + e)
+    print('Mapping ' + target + ' with ' + arguments + ' is done without errors \n')
+    # print(nmscan.scaninfo())
+
 
 
 def upcheck(target):
@@ -50,6 +57,9 @@ def upcheck(target):
     for x, status in hosts_list:
         print("[+] " + x + " is " + status)
 
+
+def outputter():
+    print('The outputter')
 
 def reader():
     print('Reads the output')
@@ -73,8 +83,11 @@ def bannergrap():
 
 
 def main():
-    banner(version)
     try:
+        banner(version)
+        # Test for root
+        if not os.geteuid() == 0:
+            sys.exit("\nYou'r not root - run sudo\n")
         # Arguments
         parser = argparse.ArgumentParser(description='RoboMap ' + 'vs ' + version)
         parser.add_argument("target", help='Target that should be scanned')
@@ -87,8 +100,8 @@ def main():
         scantype = args.scantype
         # Calls
         upcheck(target)
-        arguments = ' -sS -Pn -p- -open -vv -T4'
-        mapper(target, targetname, arguments)
+        # arguments = pingscan
+        mapper(target, targetname, pingscan)
     except RuntimeError as e:
         print('Runtime error: ' + str(e))
 
