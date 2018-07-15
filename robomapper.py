@@ -7,9 +7,10 @@
 
 version = '0.0.1a'
 
-pingscan = ' -sn -Pn'
-tcpscan = ' -sS -T4 -Pn -open -p- -oX ' + targetname + ' -vv'
-servicescan = ' -sV'
+# targetname = '10.10.10.83'
+# pingscan = ' -sn -Pn'
+# tcpscan = ' -sS -T4 -Pn -open -p- -oX ' + targetname + ' -vv'
+# servicescan = ' -sV'
 
 
 
@@ -36,15 +37,13 @@ def banner(version):
 
 
 def mapper(target, targetname, arguments):  # test target with parameters
+    print('Running nmap on ' + target + ' with arguments: ' + arguments)
     nmscan = nmap.PortScanner()  # Constructing object
     nmscan.scan(hosts=target, arguments=arguments)  # test if target is up
     # something
-    print('[+] Host: ' + str(target) + " is " + str(state))
-    print('Running nmap on ' + target + ' with arguments: ' + arguments)
 
 
 def upcheck(target):
-    # new code
     nm = nmap.PortScanner()  # Constructing object nm
     nm.scan(hosts=target, arguments='-sn -Pn -PE')
     hosts_list = [(x, nm[x]['status']['state']) for x in nm.all_hosts()]
@@ -52,12 +51,17 @@ def upcheck(target):
         print("[+] " + x + " is " + status)
 
 
+def reader():
+    print('Reads the output')
+
+
 def handler():
     print('This is the handler')
 
 
-def threader():
-    print('The Threader')
+def threader(function, arguments):
+    t = threading.Thread(target=function, args=arguments)
+    t.start()
 
 
 def smbhandler():
@@ -81,9 +85,10 @@ def main():
         target = args.target
         targetname = args.targetname
         scantype = args.scantype
-        #
+        # Calls
         upcheck(target)
-        # mapper(target, targetname, ' -sS -Pn -vv --top-ports 100')
+        arguments = ' -sS -Pn -p- -open -vv -T4'
+        mapper(target, targetname, arguments)
     except RuntimeError as e:
         print('Runtime error: ' + str(e))
 
