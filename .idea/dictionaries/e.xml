@@ -4,10 +4,15 @@
       <w>addclient</w>
       <w>botnetcommand</w>
       <w>cyberium</w>
+      <w>nmap</w>
       <w>nmscan</w>
+      <w>pingscan</w>
       <w>robo</w>
+      <w>servicescan</w>
       <w>smbhandler</w>
       <w>starwars</w>
+      <w>targetname</w>
+      <w>tcpscan</w>
       <w>uname</w>
       <w>uphosts</w>
     </words>
