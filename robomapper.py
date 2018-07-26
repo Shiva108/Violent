@@ -128,7 +128,7 @@ def main():
         upcheck(target)
         # arguments = pingscan
         # mapper(target, targetname, pingscan)
-        mapper(target, targetname, ' -sV -p 80,22 -Pn -vv -T4')
+        mapper(target, targetname, ' -sT -p 21,80 -Pn -vv -T4')
     except RuntimeError as e:
         print('Runtime error: ' + str(e))
 
