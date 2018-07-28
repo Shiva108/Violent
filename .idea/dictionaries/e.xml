@@ -4,8 +4,10 @@
       <w>addclient</w>
       <w>botnetcommand</w>
       <w>cyberium</w>
+      <w>fullpath</w>
       <w>nmap</w>
       <w>nmscan</w>
+      <w>openports</w>
       <w>pingscan</w>
       <w>robo</w>
       <w>servicescan</w>
